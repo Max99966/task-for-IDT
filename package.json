@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "ISC",
+  "author": "Max",
   "devDependencies": {
     "jest": "^29.7.0"
   },
