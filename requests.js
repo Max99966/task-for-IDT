@@ -1,10 +1,34 @@
-const httpRequest = require("./commonFunctions");
+const axios = require('axios');
 
-const getAllProducts = async () => {
-    const url = `https://automationexercise.com/api/productsList`
+const HttpRequestManager = async (method, url, headers = {}, body = {}) => {
     try {
-        return await httpRequest('GET', url);
+        switch (method) {
+            case 'POST': {
+                return await axios.post(url, body, {headers});
+            }
+            case 'PUT': {
+                return await axios.put(url, body, {headers});
+            }
+            case 'PATCH': {
+                return await axios.patch(url, body, {headers});
+            }
+            case 'DELETE': {
+                return await axios.delete(url, {headers});
+            }
+            default: {
+                return await axios.get(url, {headers});
+            }
+        }
     } catch (e) {
-        return e;
+        throw e;
     }
 };
+
+const getAllProducts = async (method = "GET") => {
+    const url = 'https://automationexercise.com/api/productsList';
+    return await HttpRequestManager(method, url)
+}
+
+module.exports = {
+    getAllProducts
+}
