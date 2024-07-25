@@ -1,0 +1,113 @@
+{
+  "positiveCases": [
+    {
+      "name": "Check response for valid body with all optional fields",
+      "description": "Send a PUT request with a valid body including all optional and required fields.",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with a valid body including all required and optional fields. 2. Capture the response. 3. Check that the status code is 200 and the response message is 'User updated!'.",
+      "expected": "200 OK, 'User updated!'",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response with only required fields",
+      "description": "Send a PUT request with only the required fields.",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with a valid body including only the required fields. 2. Capture the response. 3. Check that the status code is 200 and the response message is 'User updated!'.",
+      "expected": "200 OK, 'User updated!'",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response time",
+      "description": "Ensure that the response time for a PUT request with a valid body is less than 1 second.",
+      "steps": "1. Start a timer. 2. Send a PUT request to the /api/updateAccount endpoint with a valid body. 3. Capture the response. 4. Stop the timer and calculate the response time. 5. Verify that the response time is less than 1 second.",
+      "expected": "Response time is less than 1 second.",
+      "isAutomated": true,
+      "notes": "Use a timeout of 1000 milliseconds in the test case to ensure the response time is within acceptable limits."
+    },
+    {
+      "name": "Update and verify all fields",
+      "description": "Send a PUT request to update all the fields of the user, then send a GET request to verify the updates.",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with all fields filled with new valid data. 2. Capture the response and check that the status code is 200 and the response message is 'User updated!'. 3. Send a GET request to the /api/getUserDetailByEmail endpoint with the email. 4. Capture the response and verify that all fields match the updated data.",
+      "expected": "200 OK, 'User updated!', GET request returns the updated user data with all fields correctly updated.",
+      "isAutomated": false
+    }
+  ],
+  "negativeCases": [
+    {
+      "name": "Check response for invalid email",
+      "description": "Send a PUT request with an invalid email and a valid password.",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with an invalid email and a valid password. 2. Capture the response. 3. Check the response message.",
+      "expected": "404 - User not found!",
+      "isAutomated": true,
+      "notes": "Need to check this case with different type of emails (Missing @ Symbol, Multiple @ Symbols, Leading Dot in Local Part, Special Characters in Domain, etc.)"
+    },
+    {
+      "name": "Check response for missing email field",
+      "description": "Send a PUT request without the email field.",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint without the email field. 2. Capture the response. 3. Check the status code and response message for appropriate error handling.",
+      "expected": "400 - Bad request, email parameter is missing in PUT request.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response for missing password field",
+      "description": "Send a PUT request without the password field.",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint without the password field. 2. Capture the response. 3. Check the status code and response message for appropriate error handling.",
+      "expected": "400 - Bad request, password parameter is missing in PUT request.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response for invalid title field (unsupported value)",
+      "description": "Send a PUT request with an unsupported value for the title field (e.g., 'Dr').",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with an unsupported value for the title field (e.g., 'Dr') and other required fields. 2. Capture the response and check the status code and response message for appropriate error handling.",
+      "expected": "4XX Client Error, appropriate error message indicating invalid title value.",
+      "isAutomated": true,
+      "actual": "200 OK, 'User updated!'"
+    },
+    {
+      "name": "Check response for invalid birth_date field",
+      "description": "Send a PUT request with an invalid birth_date (e.g., a number greater than 31).",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with an invalid birth_date (e.g., 32) and other required fields. 2. Capture the response and check the status code and response message for appropriate error handling.",
+      "expected": "4XX Client Error, appropriate error message indicating invalid birth_date.",
+      "isAutomated": true,
+      "actual": "200 OK, 'User updated!'"
+    },
+    {
+      "name": "Check response for out-of-range birth_month field",
+      "description": "Send a PUT request with an out-of-range birth_month (e.g., a number greater than 12).",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with an out-of-range birth_month (e.g., 13) and other required fields. 2. Capture the response and check the status code and response message for appropriate error handling.",
+      "expected": "4XX Client Error, appropriate error message indicating out-of-range birth_month.",
+      "isAutomated": true,
+      "actual": "200 OK, 'User updated!'"
+    },
+    {
+      "name": "Check response for out-of-range birth_year field (before 1900)",
+      "description": "Send a PUT request with a birth_year before the valid range (e.g., 1805).",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with a birth_year before 1900 (e.g., 1805) and other required fields. 2. Capture the response and check the status code and response message for appropriate error handling.",
+      "expected": "4XX Client Error, appropriate error message indicating out-of-range birth_year.",
+      "isAutomated": true,
+      "actual": "200 OK, 'User updated!'"
+    },
+    {
+      "name": "Check response for out-of-range birth_year field (after 2021)",
+      "description": "Send a PUT request with a birth_year after the valid range (e.g., 2025).",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with a birth_year after 2021 (e.g., 2025) and other required fields. 2. Capture the response and check the status code and response message for appropriate error handling.",
+      "expected": "4XX Client Error, appropriate error message indicating out-of-range birth_year.",
+      "isAutomated": true,
+      "actual": "200 OK, 'User updated!'"
+    },
+    {
+      "name": "Check response for SQL injection attempt",
+      "description": "Send a PUT request with SQL injection code in the fields.",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with SQL injection code in the fields. 2. Capture the response. 3. Check the status code and response message for appropriate error handling.",
+      "expected": "4XX Client Error, appropriate error message indicating invalid input",
+      "isAutomated": true,
+      "actual": "404 - Account not found!, which is a bug"
+    },
+    {
+      "name": "Check response for XSS attack attempt",
+      "description": "Send a PUT request with XSS attack code in the fields.",
+      "steps": "1. Send a PUT request to the /api/updateAccount endpoint with XSS attack code in the fields. 2. Capture the response. 3. Check the status code and response message for appropriate error handling.",
+      "expected": "4XX Client Error, appropriate error message indicating invalid input",
+      "isAutomated": true,
+      "actual": "User is updated, which is a bug"
+    }
+  ]
+}

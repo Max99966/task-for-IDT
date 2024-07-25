@@ -1,7 +1,7 @@
 const {getAllProducts} = require("../requests");
 const {productsArraySchema} = require("../joiSchemas/validationForAllProducts");
 
-describe('API Tests for Products List - Positive Test Cases', () => {
+describe('Tests for Products List - Positive Test Cases', () => {
     let response = {};
     let products = [];
 
@@ -39,7 +39,7 @@ describe('API Tests for Products List - Positive Test Cases', () => {
     });
 });
 
-describe('API Tests for Products List - Negative Test Cases', () => {
+describe('Tests for Products List - Negative Test Cases', () => {
     test('Incorrect HTTP Method - Status 405', async () => {
         const response = await getAllProducts("POST")
         expect(response.data['responseCode']).toBe(405)

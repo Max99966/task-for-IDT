@@ -6,21 +6,11 @@ const httpRequestManager = async (method, url, body = {}, headers = {}) => {
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
     try {
         switch (method) {
-            case 'POST': {
-                return await axios.post(url, body, {headers});
-            }
-            case 'PUT': {
-                return await axios.put(url, body, {headers});
-            }
-            case 'PATCH': {
-                return await axios.patch(url, body, {headers});
-            }
-            case 'DELETE': {
-                return await axios.delete(url, {headers});
-            }
-            default: {
-                return await axios.get(url, {headers});
-            }
+            case 'POST': return await axios.post(url, body, {headers});
+            case 'PUT': return await axios.put(url, body, {headers});
+            case 'PATCH': return await axios.patch(url, body, {headers});
+            case 'DELETE': return await axios.delete(url, {headers});
+            default: return await axios.get(url, {headers});
         }
     } catch (e) {
         return e.response;
@@ -37,7 +27,13 @@ const verifyLogin = async (body, method = "POST", endpoint = "/api/verifyLogin")
     return await httpRequestManager(method, url, body)
 }
 
+const updateUserAccount = async (body, method = "PUT", endpoint = "/api/updateAccount") => {
+    const url = `${baseURL}${endpoint}`;
+    return await httpRequestManager(method, url, body)
+}
+
 module.exports = {
     getAllProducts,
-    verifyLogin
+    verifyLogin,
+    updateUserAccount
 }
