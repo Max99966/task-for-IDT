@@ -1,0 +1,22 @@
+{
+  "validEmailsForTest": [
+    "testmaaks@gmail.com",
+    "testmaaks+123@gmail.com",
+    "testmaaks+testtesttesttesttesttest@gmail.com",
+    "testmaaks+CaSeseNsiTiveE@gmail.com",
+    "testmaaks+123+test@gmail.com"
+  ],
+  "invalidEmailsForTest": [
+    "testmaaksgmail.com",
+    "testmaaks@@gmail.com",
+    ".testmaaks@gmail.com",
+    "testmaaks@gmail#com",
+    "testmaaks@gmail",
+    "testmaaks@.com",
+    "testmaaks@gmail.c",
+    "testmaaks @gmail.com",
+    "testmaaks!@gmail.com",
+    "testmaaks@"
+  ],
+  "validPassword": "Test1245"
+}

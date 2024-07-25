@@ -2,13 +2,13 @@ const {getAllProducts} = require("../requests");
 const {productsArraySchema} = require("../joiSchemas/validationForAllProducts");
 
 describe('API Tests for Products List - Positive Test Cases', () => {
-    let response = {}
-    let products = []
+    let response = {};
+    let products = [];
 
     beforeAll(async () => {
         response = await getAllProducts();
-        products = response.data['products']
-    }, 1000) // Info: Timeout will check the following test case: "Check response time"
+        products = response.data['products'];
+    }, 1000); // Info: Timeout will check the following test case: "Check response time"
 
     test('Check status code to be 200', async () => {
         expect(response.status).toBe(200);
@@ -24,6 +24,7 @@ describe('API Tests for Products List - Positive Test Cases', () => {
         if (validation.error) {
             console.error(validation.error.details);
         }
+        expect(validation.error).toBeUndefined();
     });
 
     test('Check that product IDs are unique', async () => {
@@ -53,8 +54,8 @@ describe('API Tests for Products List - Negative Test Cases', () => {
     });
 
     test('Check the URL with wrong endpoint', async () => {
-        const response = await getAllProducts("GET", '/api/productsListt')
+        const response = await getAllProducts("GET", '/api/productsListt');
         expect(response.status).toBe(404);
         expect(response.statusText).toBe("Not Found");
     });
-})
+});

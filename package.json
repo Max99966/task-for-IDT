@@ -1,4 +1,8 @@
 {
+  "name": "task_for_idt",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "ISC",
   "devDependencies": {
     "jest": "^29.7.0"
   },
@@ -6,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "axios": "^1.7.2"
+    "axios": "^1.7.2",
+    "joi": "^17.8.3"
   }
 }

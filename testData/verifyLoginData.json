@@ -1,0 +1,80 @@
+{
+  "positiveTestCases": [
+    {
+      "name": "Check status code to be 200",
+      "description": "Ensure that a valid POST request with correct email and password returns a 200 OK status.",
+      "steps": "1. Send a POST request to the /api/verifyLogin endpoint with valid email and password. 2. Capture the response. 3. Check the status code of the response.",
+      "expected": "200 OK, a JSON response containing 'User exists!'.",
+      "isAutomated": true,
+      "notes": "Need to check this case with different type of emails (with numbers, long email, case sensitive, with multiple sub-emails +s)"
+    },
+    {
+      "name": "Check response message for valid credentials",
+      "description": "Verify that the response message is 'User exists!' when valid credentials are provided.",
+      "steps": "1. Send a POST request to the /api/verifyLogin endpoint with valid email and password. 2. Capture the response. 3. Verify that the response message is 'User exists!'.",
+      "expected": "'User exists!' message in the response.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response time",
+      "description": "Ensure that the response time is less than 1 second for valid login credentials.",
+      "steps": "1. Start a timer. 2. Send a POST request to the /api/verifyLogin endpoint with valid email and password. 3. Capture the response. 4. Stop the timer and calculate the response time.",
+      "expected": "Response time is less than 1 second.",
+      "isAutomated": true
+    }
+  ],
+  "negativeTestCases": [
+    {
+      "name": "Check response for invalid credentials",
+      "description": "Send a POST request with invalid email and/or password.",
+      "steps": "1. Send a POST request to the /api/verifyLogin endpoint with invalid email and/or password. 2. Capture the response. 3. Check the response message.",
+      "expected": "404 - User not found!",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response for missing email parameter",
+      "description": "Send a POST request without the email parameter.",
+      "steps": "1. Send a POST request to the /api/verifyLogin endpoint without the email parameter. 2. Capture the response. 3. Check the response message.",
+      "expected": "400 - Bad request, email or password parameter is missing in POST request.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response for missing password parameter",
+      "description": "Send a POST request without the password parameter.",
+      "steps": "1. Send a POST request to the /api/verifyLogin endpoint without the password parameter. 2. Capture the response. 3. Check the response message.",
+      "expected": "400 - Bad request, email or password parameter is missing in POST request.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response for empty email value",
+      "description": "Send a POST request with an empty email value.",
+      "steps": "1. Send a POST request to the /api/verifyLogin endpoint with an empty email value. 2. Capture the response. 3. Check the response message.",
+      "expected": "Error message indicating empty email value. This step is counted as incorrect user, because of no password validation when signing up.",
+      "actual": "404 - User not found!",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response for empty password value",
+      "description": "Send a POST request with an empty password value.",
+      "steps": "1. Send a POST request to the /api/verifyLogin endpoint with an empty password value. 2. Capture the response. 3. Check the response message.",
+      "expected": "Error message indicating empty password value.",
+      "actual": "404 - User not found!",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response for empty email and password values",
+      "description": "Send a POST request with both empty email and password values.",
+      "steps": "1. Send a POST request to the /api/verifyLogin endpoint with both empty email and password values. 2. Capture the response. 3. Check the response message.",
+      "expected": "Error message indicating empty email and/or password values.",
+      "actual": "404 - User not found!",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response for incorrect method (GET)",
+      "description": "Send a request using an invalid HTTP method, GET.",
+      "steps": "1. Send a GET request to the /api/verifyLogin endpoint. 2. Capture the response. 3. Check the status code of the response.",
+      "expected": "405 - This request method is not supported.",
+      "isAutomated": true
+    }
+  ]
+}

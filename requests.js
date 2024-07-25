@@ -1,6 +1,9 @@
 const axios = require('axios');
 
-const HttpRequestManager = async (method, url, headers = {}, body = {}) => {
+const baseURL = "https://automationexercise.com"
+
+const httpRequestManager = async (method, url, body = {}, headers = {}) => {
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
     try {
         switch (method) {
             case 'POST': {
@@ -20,15 +23,21 @@ const HttpRequestManager = async (method, url, headers = {}, body = {}) => {
             }
         }
     } catch (e) {
-        throw e;
+        return e.response;
     }
 };
 
-const getAllProducts = async (method = "GET") => {
-    const url = 'https://automationexercise.com/api/productsList';
-    return await HttpRequestManager(method, url)
+const getAllProducts = async (method = "GET", endpoint = "/api/productsList") => {
+    const url = `${baseURL}${endpoint}`;
+    return await httpRequestManager(method, url)
+}
+
+const verifyLogin = async (body, method = "POST", endpoint = "/api/verifyLogin") => {
+    const url = `${baseURL}${endpoint}`;
+    return await httpRequestManager(method, url, body)
 }
 
 module.exports = {
-    getAllProducts
+    getAllProducts,
+    verifyLogin
 }

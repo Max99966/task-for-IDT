@@ -1,5 +1,69 @@
 {
-  "testCases": [
-
+  "positiveTestCases": [
+    {
+      "name": "Check status code to be 200",
+      "description": "Ensure that a valid GET request returns a 200 OK status.",
+      "steps": "1. Send a GET request to the /api/productsList endpoint. 2. Capture the response. 3. Check the status code of the response.",
+      "expected": "200 OK, a JSON response containing the list of products.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check that response is not empty",
+      "description": "Verify that the product list is not empty.",
+      "steps": "1. Send a GET request to the /api/productsList endpoint. 2. Capture the response. 3. Check that the response body is an array and is not empty.",
+      "expected": "Non-empty product list.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response json schema",
+      "description": "Verify that the response contains the expected fields (id, name, price, brand, category). Also, check that the types and values are correct.",
+      "steps": "1. Send a GET request to the /api/productsList endpoint. 2. Capture the response. 3. Validate that the response JSON contains fields: id, name, price, brand, and category. 4. Verify the types and values of these fields.",
+      "expected": "JSON response with the correct structure.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check that product IDs are unique",
+      "description": "Verify that there are no duplicated product IDs.",
+      "steps": "1. Send a GET request to the /api/productsList endpoint. 2. Capture the response. 3. Extract the product IDs from the response. 4. Check for duplicate IDs.",
+      "expected": "All product IDs are unique.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check that the response is same each time",
+      "description": "Verify that the list of products stays unchanged (as it is a hardcoded list).",
+      "steps": "1. Send a GET request to the /api/productsList endpoint. 2. Capture the response. 3. Send another GET request to the same endpoint. 4. Capture the second response. 5. Compare both responses for consistency.",
+      "expected": "The products list is the same after every call.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check response time",
+      "description": "Ensure that the response time is less than 1 second.",
+      "steps": "1. Start a timer. 2. Send a GET request to the /api/productsList endpoint. 3. Capture the response. 4. Stop the timer and calculate the response time.",
+      "expected": "Response time is less than 1 second.",
+      "isAutomated": true
+    }
+  ],
+  "negativeTestCases": [
+    {
+      "name": "Check the API with incorrect method (POST)",
+      "description": "Send a request using an invalid HTTP method, POST.",
+      "steps": "1. Send a POST request to the /api/productsList endpoint. 2. Capture the response. 3. Check the status code of the response.",
+      "expected": "405 - This request method is not supported.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check the URL with multiple slashes",
+      "description": "Send a request to a malformed URL, /////api//productsList.",
+      "steps": "1. Send a GET request to the malformed URL /////api//productsList. 2. Capture the response. 3. Check the status code of the response.",
+      "expected": "404 - Not Found.",
+      "isAutomated": true
+    },
+    {
+      "name": "Check the URL with wrong endpoint",
+      "description": "Send a request to a malformed URL, /api/productsListt.",
+      "steps": "1. Send a GET request to the malformed URL /api/productsListt. 2. Capture the response. 3. Check the status code of the response.",
+      "expected": "404 - Not Found.",
+      "isAutomated": true
+    }
   ]
 }
